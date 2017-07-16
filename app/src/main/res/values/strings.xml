@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Movies 1</string>
+
+    <!-- Text to display in the list when there is no movies [CHAR LIMIT=NONE] -->
+    <string name="no_movies">No movies found.</string>
+
+    <!-- Text to display menu to set sorting preferences [CHAR LIMIT=NONE] -->
+    <string name="most_popular">Most Popular</string>
+    <string name="top_rated">Top Rated</string>
+
+    <!-- Text to display names of views in activity_movie [CHAR LIMIT=NONE] -->
+    <string name="Title">Title</string>
+    <string name="Release_Date">Release Date</string>
+    <string name="Vote_Average">Vote Average</string>
+    <string name="Plot_Synopsis">Plot Synopsis</string>
+</resources>
