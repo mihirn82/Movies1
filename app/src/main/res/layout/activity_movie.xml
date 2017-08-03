@@ -1,62 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/title_text"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:color/darker_gray"
-        android:gravity="center_vertical"
-        android:paddingLeft="16dp"
-        android:text="@string/Title"
-        android:textColor="@android:color/white"
-        android:textSize="28sp" />
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/title_image_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            tools:text="@string/Title"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/title_text_size" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/release_date"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="@string/Release_Date"
-                android:textSize="18sp" />
+            <ImageView
+                android:id="@+id/title_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"/>
 
-            <TextView
-                android:id="@+id/vote_average"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="@string/Vote_Average"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/release_date"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    tools:text="@string/Release_Date"
+                    android:textSize="@dimen/release_date_text_size" />
+
+                <TextView
+                    android:id="@+id/vote_average"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    tools:text="@string/Vote_Average"
+                    android:textSize="@dimen/vote_average_text_size"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/plot_synopsis"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="8dp"
-        android:layout_weight="2"
-        android:text="@string/Plot_Synopsis" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/plot_synopsis"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="8dp"
+            android:layout_weight="2"
+            tools:text="@string/Plot_Synopsis" />
+    </LinearLayout>
+</ScrollView>

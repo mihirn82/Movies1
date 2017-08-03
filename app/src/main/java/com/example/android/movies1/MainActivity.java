@@ -164,14 +164,7 @@ public class MainActivity extends AppCompatActivity
         // Set empty state text to display "No movies found."
         mEmptyStateTextView.setText(R.string.no_movies);
 
-        // Clear the adapter of previous news data
-        mAdapter.clear();
-
-        // If there is a valid list of {@link Movies}s, then add them to the adapter's
-        // data set. This will trigger the ListView to update.
-        if (movies != null && !movies.isEmpty()) {
-            mAdapter.addAll(movies);
-        }
+        mAdapter.swapData(movies);
 
         Log.v("MainActivity.java","Inside onLoadFinished");
     }

@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static android.R.attr.x;
 
 /**
  * Created by mihirnewalkar on 7/4/17.
@@ -24,6 +27,8 @@ public class MoviesAdapter extends ArrayAdapter<Movies> {
     private static final String LOG_TAG = Movies.class.getSimpleName();
 
     private static final String base_url = "http://image.tmdb.org/t/p/w500";
+
+    private List<Movies> mMoviesList;
 
     /**
      * This is our own custom constructor (it doesn't mirror a superclass constructor).
@@ -39,6 +44,7 @@ public class MoviesAdapter extends ArrayAdapter<Movies> {
         // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not
         // going to use this second argument, so it can be any value. Here, we used 0.
         super(context, 0, movies);
+        mMoviesList = movies;
     }
 
     /**
@@ -71,5 +77,11 @@ public class MoviesAdapter extends ArrayAdapter<Movies> {
         // Return the whole list item layout
         // so that it can be shown in the ListView
         return listItemView;
+    }
+
+    void swapData(List<Movies> movies) {
+        mMoviesList.clear();
+        mMoviesList.addAll(movies);
+        notifyDataSetChanged();
     }
 }
