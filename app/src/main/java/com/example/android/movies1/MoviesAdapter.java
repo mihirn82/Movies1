@@ -24,7 +24,7 @@ import static android.R.attr.x;
 
 public class MoviesAdapter extends ArrayAdapter<Movies> {
 
-    private static final String LOG_TAG = Movies.class.getSimpleName();
+    private static final String LOG_TAG = MoviesAdapter.class.getSimpleName();
 
     private static final String base_url = "http://image.tmdb.org/t/p/w500";
 
@@ -71,7 +71,7 @@ public class MoviesAdapter extends ArrayAdapter<Movies> {
         ImageView titleView = (ImageView) listItemView.findViewById(R.id.title_image_view);
         String sPosterTitle = currentMovies.getPosterTitle();
         sPosterTitle = base_url + sPosterTitle;
-        Log.v("MoviesAdapter.java",sPosterTitle);
+        Log.v(LOG_TAG,sPosterTitle);
         Picasso.with(getContext()).load(sPosterTitle).into(titleView);
 
         // Return the whole list item layout

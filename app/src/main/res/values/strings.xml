@@ -7,10 +7,23 @@
     <!-- Text to display menu to set sorting preferences [CHAR LIMIT=NONE] -->
     <string name="most_popular">Most Popular</string>
     <string name="top_rated">Top Rated</string>
+    <string name="favorite">Favorites</string>
+
+    <!-- Text to display sharing preferences [CHAR LIMIT=NONE] -->
+    <string name="share_video">Share</string>
+
+    <!-- Text to display the state of favorite button [CHAR LIMIT=NONE] -->
+    <string name="textOn">Mark Favorite</string>
+    <string name="toast_mark_favorite">Added to Favorites</string>
+    <string name="textOff">Remove Favorite</string>
+    <string name="toast_unmark_favorite">Removed from Favorites</string>
 
     <!-- Text to display names of views in activity_movie [CHAR LIMIT=NONE] -->
     <string name="Title">Title</string>
     <string name="Release_Date">Release Date</string>
     <string name="Vote_Average">Vote Average</string>
     <string name="Plot_Synopsis">Plot Synopsis</string>
+
+    <string name="Trailers">Trailers:</string>
+    <string name="Reviews">Reviews:</string>
 </resources>

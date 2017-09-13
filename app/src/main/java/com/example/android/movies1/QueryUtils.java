@@ -18,7 +18,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.android.movies1.MainActivity.LOG_TAG;
+
 
 /**
  * Created by mihirnewalkar on 7/4/17.
@@ -26,6 +26,7 @@ import static com.example.android.movies1.MainActivity.LOG_TAG;
 
 public final class QueryUtils {
 
+    public static final String LOG_TAG = QueryUtils.class.getName();
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
      * This class is only meant to hold static variables and methods, which can be accessed
@@ -37,7 +38,7 @@ public final class QueryUtils {
     /**
      * Returns new URL object from the given string URL.
      */
-    private static URL createUrl(String stringUrl) {
+    public static URL createUrl(String stringUrl) {
         URL url = null;
         try {
             url = new URL(stringUrl);
@@ -51,7 +52,7 @@ public final class QueryUtils {
     /**
      * Make an HTTP request to the given URL and return a String as the response.
      */
-    private static String makeHttpRequest(URL url) throws IOException {
+    public static String makeHttpRequest(URL url) throws IOException {
         String jsonResponse = "";
 
         // If the URL is null, then return early.
@@ -118,7 +119,7 @@ public final class QueryUtils {
             return null;
         }
 
-        // Create an empty ArrayList that we can start adding news to
+        // Create an empty ArrayList that we can start adding movies to
         List<Movies> movies = new ArrayList<>();
 
         // Try to parse the JSON response string. If there's a problem with the way the JSON
@@ -135,6 +136,7 @@ public final class QueryUtils {
                 JSONObject currentMovies = moviesArray.getJSONObject(i);
 
                 // Extract movie details
+                String id = currentMovies.getString("id");
                 String title = currentMovies.getString("title");
                 String posterTitle = currentMovies.getString("poster_path");
                 String releaseDate = currentMovies.getString("release_date");
@@ -142,7 +144,7 @@ public final class QueryUtils {
                 String plotSynopsis = currentMovies.getString("overview");
 
                 if (posterTitle!="null") {
-                    Movies movies1 = new Movies(title,posterTitle,releaseDate,voteAverage,plotSynopsis);
+                    Movies movies1 = new Movies(id,title,posterTitle,releaseDate,voteAverage,plotSynopsis);
                     movies.add(movies1);
                 }
             }
@@ -175,5 +177,141 @@ public final class QueryUtils {
         Log.v("QueryUtils.java","Inside fetchMoviesData");
         // Return the list of {@link Movies}
         return movies;
+    }
+
+    public static List<Reviews> fetchReviews(String requestUrl) {
+        // Create URL object
+        URL url = createUrl(requestUrl);
+
+        // Perform HTTP request to the URL and receive a JSON response back
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpRequest(url);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Problem making the HTTP request.", e);
+        }
+
+        // Extract relevant fields from the JSON response and create a list of {@link Movies}
+        List<Reviews> reviews = extractReviewsFromJson(jsonResponse);
+
+        Log.v("QueryUtils.java","Inside fetchReviews");
+        // Return the list of {@link Movies}
+        return reviews;
+    }
+
+    /**
+     * Return an {@link Movies} object by parsing out information
+     * about the first news from the input newsJSON string.
+     */
+    private static List<Reviews> extractReviewsFromJson(String reviewsJSON) {
+        // If the JSON string is empty or null, then return early.
+        if (TextUtils.isEmpty(reviewsJSON)) {
+            return null;
+        }
+
+        // Create an empty ArrayList that we can start adding reviews to
+        List<Reviews> reviews = new ArrayList<>();
+
+        // Try to parse the JSON response string. If there's a problem with the way the JSON
+        // is formatted, a JSONException exception object will be thrown.
+        // Catch the exception so the app doesn't crash, and print the error message to the logs.
+
+        try {
+            JSONObject baseJsonResponse = new JSONObject(reviewsJSON);
+            JSONArray reviewsArray = baseJsonResponse.getJSONArray("results");
+
+            // If there are results in the features array
+            for (int i = 0; i < reviewsArray.length(); i++) {
+                // Extract out the first feature
+                JSONObject currentMovieReviews = reviewsArray.getJSONObject(i);
+
+                // Extract review details
+                String id = currentMovieReviews.getString("id");
+                String author = currentMovieReviews.getString("author");
+                String content = currentMovieReviews.getString("content");
+
+                Log.i(LOG_TAG,id + " " + author + " " + content);
+
+                Reviews reviews1 = new Reviews(id,author,content);
+                reviews.add(reviews1);
+            }
+
+            if (reviewsArray.length() == 0) {
+                String content = "No reviews yet";
+
+                Log.i(LOG_TAG, content);
+
+                Reviews reviews1 = new Reviews(null,null,content);
+                reviews.add(reviews1);
+            }
+
+        } catch (JSONException e) {
+            Log.e(LOG_TAG,   "Problem parsing the news JSON results", e);
+        }
+        return reviews;
+    }
+
+
+    public static List<Trailers> fetchTrailers(String requestUrl) {
+        // Create URL object
+        URL url = createUrl(requestUrl);
+
+        // Perform HTTP request to the URL and receive a JSON response back
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpRequest(url);
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Problem making the HTTP request.", e);
+        }
+
+        // Extract relevant fields from the JSON response and create a list of {@link Movies}
+        List<Trailers> trailers = extractTrailersFromJson(jsonResponse);
+
+        Log.v(LOG_TAG,"Inside fetchTrailers");
+        // Return the list of {@link Movies}
+        return trailers;
+    }
+
+
+    /**
+     * Return an {@link Movies} object by parsing out information
+     * about the first news from the input newsJSON string.
+     */
+    private static List<Trailers> extractTrailersFromJson(String reviewsJSON) {
+        // If the JSON string is empty or null, then return early.
+        if (TextUtils.isEmpty(reviewsJSON)) {
+            return null;
+        }
+
+        // Create an empty ArrayList that we can start adding reviews to
+        List<Trailers> trailers = new ArrayList<>();
+
+        // Try to parse the JSON response string. If there's a problem with the way the JSON
+        // is formatted, a JSONException exception object will be thrown.
+        // Catch the exception so the app doesn't crash, and print the error message to the logs.
+
+        try {
+            JSONObject baseJsonResponse = new JSONObject(reviewsJSON);
+            JSONArray reviewsArray = baseJsonResponse.getJSONArray("results");
+
+            // If there are results in the features array
+            for (int i = 0; i < reviewsArray.length(); i++) {
+                // Extract out the first feature
+                JSONObject currentMovieTrailers = reviewsArray.getJSONObject(i);
+
+                // Extract trailer details
+                String id = currentMovieTrailers.getString("id");
+                String key = currentMovieTrailers.getString("key");
+
+                Log.i(LOG_TAG,id + " " + key);
+
+                Trailers trailers1 = new Trailers(id,key);
+                trailers.add(trailers1);
+            }
+
+        } catch (JSONException e) {
+            Log.e(LOG_TAG,   "Problem parsing the news JSON results", e);
+        }
+        return trailers;
     }
 }

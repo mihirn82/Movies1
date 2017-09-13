@@ -2,33 +2,27 @@ package com.example.android.movies1;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.content.Loader;
+import android.net.Uri;
 import android.util.Log;
 
 import java.util.List;
 
 /**
- * Created by mihirnewalkar on 7/4/17.
+ * Created by mihirnewalkar on 9/7/17.
  */
 
-public class MoviesLoader extends AsyncTaskLoader<List<Movies>>{
+public class ReviewsLoader extends AsyncTaskLoader<List<Reviews>> {
 
     /** Tag for log messages */
-    private static final String LOG_TAG = MoviesLoader.class.getName();
+    private static final String LOG_TAG = ReviewsLoader.class.getName();
 
     /** Query URL */
     private String mUrl;
 
-    /**
-     * Constructs a new {@link MoviesLoader}.
-     *
-     * @param context of the activity
-     * @param url to load data from
-     */
-
-    public MoviesLoader(Context context,String url) {
+    public ReviewsLoader(Context context, String url) {
         super(context);
         mUrl = url;
-
     }
 
     @Override
@@ -38,15 +32,13 @@ public class MoviesLoader extends AsyncTaskLoader<List<Movies>>{
     }
 
     @Override
-    public List<Movies> loadInBackground() {
-
+    public List<Reviews> loadInBackground() {
         Log.v(LOG_TAG,"Inside loadInBackground");
         // Don't perform the request if there are no URLs, or the first URL is null.
         if (mUrl == null) {
             return null;
         }
-
-        List<Movies> movies = QueryUtils.fetchMoviesData(mUrl);
-        return movies;
+        List <Reviews> reviews = QueryUtils.fetchReviews(mUrl);
+        return reviews;
     }
 }

@@ -7,28 +7,20 @@ import android.util.Log;
 import java.util.List;
 
 /**
- * Created by mihirnewalkar on 7/4/17.
+ * Created by mihirnewalkar on 9/7/17.
  */
 
-public class MoviesLoader extends AsyncTaskLoader<List<Movies>>{
+public class TrailersLoader extends AsyncTaskLoader<List<Trailers>> {
 
     /** Tag for log messages */
-    private static final String LOG_TAG = MoviesLoader.class.getName();
+    private static final String LOG_TAG = TrailersLoader.class.getName();
 
     /** Query URL */
     private String mUrl;
 
-    /**
-     * Constructs a new {@link MoviesLoader}.
-     *
-     * @param context of the activity
-     * @param url to load data from
-     */
-
-    public MoviesLoader(Context context,String url) {
+    public TrailersLoader(Context context,String url) {
         super(context);
         mUrl = url;
-
     }
 
     @Override
@@ -38,15 +30,13 @@ public class MoviesLoader extends AsyncTaskLoader<List<Movies>>{
     }
 
     @Override
-    public List<Movies> loadInBackground() {
-
+    public List<Trailers> loadInBackground() {
         Log.v(LOG_TAG,"Inside loadInBackground");
         // Don't perform the request if there are no URLs, or the first URL is null.
         if (mUrl == null) {
             return null;
         }
-
-        List<Movies> movies = QueryUtils.fetchMoviesData(mUrl);
-        return movies;
+        List <Trailers> trailers = QueryUtils.fetchTrailers(mUrl);
+        return trailers;
     }
 }

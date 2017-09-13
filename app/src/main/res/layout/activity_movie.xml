@@ -12,8 +12,7 @@
         <TextView
             android:id="@+id/title_text"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:background="@android:color/darker_gray"
             android:gravity="center_vertical"
             android:paddingLeft="16dp"
@@ -23,8 +22,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <ImageView
@@ -54,16 +52,61 @@
                     tools:text="@string/Vote_Average"
                     android:textSize="@dimen/vote_average_text_size"
                     android:textStyle="bold" />
+
+                <ToggleButton
+                    android:id="@+id/favorite_button"
+                    android:layout_width="90dp"
+                    android:layout_height="60dp" />
             </LinearLayout>
         </LinearLayout>
 
         <TextView
             android:id="@+id/plot_synopsis"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="8dp"
-            android:layout_weight="2"
             tools:text="@string/Plot_Synopsis" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="8dp"
+            android:background="#000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/Trailers"
+            android:textSize="18sp"/>
+
+        <ListView
+            android:id="@+id/list_view_trailer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </ListView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="8dp"
+            android:background="#000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/Reviews"
+            android:textSize="18sp"/>
+
+        <ListView
+            android:id="@+id/list_view_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ListView>
     </LinearLayout>
 </ScrollView>
