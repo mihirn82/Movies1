@@ -69,6 +69,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (savedInstanceState != null) {
+            sortOrder = savedInstanceState.getString("sortOrder");
+        }
+
         // Find a reference to the {@link ListView} in the layout
         moviesListView = (GridView) findViewById(R.id.grid_view);
 
@@ -133,13 +137,22 @@ public class MainActivity extends AppCompatActivity
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
 
-            FINAL_REQUEST_URL = MOVIES_REQUEST_URL + sortOrder + myApi_key;
+            Log.i(LOG_TAG + "sortOrder =",sortOrder);
 
-            // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-            // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
-            // because this activity implements the LoaderCallbacks interface).
-            loaderManager.initLoader(MOVIES_LOADER_ID, null, this);
-            Log.v("MainActivity.java","Done initLoader");
+            if (sortOrder != " ") {
+
+                FINAL_REQUEST_URL = MOVIES_REQUEST_URL + sortOrder + myApi_key;
+
+                // Initialize the loader. Pass in the int ID constant defined above and pass in null for
+                // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
+                // because this activity implements the LoaderCallbacks interface).
+                loaderManager.initLoader(MOVIES_LOADER_ID, null, this);
+
+            } else {
+                getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
+            }
+
+            Log.v(LOG_TAG,"Done initLoader");
         }
         else {
             mProgress.setVisibility(View.GONE);
@@ -177,16 +190,20 @@ public class MainActivity extends AppCompatActivity
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
 
+            Log.i(LOG_TAG + "sortOrder =",sortOrder);
+
             if (sortOrder != " ") {
                 FINAL_REQUEST_URL = MOVIES_REQUEST_URL + sortOrder + myApi_key;
                 Log.v("MainActivity.java",FINAL_REQUEST_URL);
                 mAdapter.clear();
                 moviesListView.setAdapter(mAdapter);
                 getLoaderManager().restartLoader(MOVIES_LOADER_ID, null, this);
+                Log.v(LOG_TAG,"Done restart loader");
             } else {
                 mCursorAdapter.swapCursor(null);
                 moviesListView.setAdapter(mCursorAdapter);
                 getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
+                Log.v(LOG_TAG,"Done restart loader");
             }
         }
         else {
@@ -197,6 +214,7 @@ public class MainActivity extends AppCompatActivity
                 mCursorAdapter.swapCursor(null);
                 moviesListView.setAdapter(mCursorAdapter);
                 getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
+                Log.v(LOG_TAG,"Done restart loader");
             }
         }
         return super.onOptionsItemSelected(item);
@@ -292,5 +310,11 @@ public class MainActivity extends AppCompatActivity
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("sortOrder",sortOrder);
     }
 }
